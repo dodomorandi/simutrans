@@ -4,6 +4,7 @@
 #
 
 find_package(SDL 1.2)
+find_package(Allegro)
 
 option(SIMUTRANS_BUILD_HEADLESS "Build Simutrans without graphics backend. Recommended for standalone servers." OFF)
 
@@ -13,12 +14,16 @@ if (NOT SIMUTRANS_BUILD_HEADLESS)
 		mark_as_advanced(SDLMAIN_LIBRARY SDL_INCLUDE_DIR SDL_LIBRARY)
 	endif (SDL_FOUND)
 
+	if (Allegro_FOUND)
+		list(APPEND AVAILABLE_BACKENDS "allegro")
+	endif (Allegro_FOUND)
+
 	if (AVAILABLE_BACKENDS)
 		string(REGEX MATCH "^[^;][^;]*" FIRST_BACKEND "${AVAILABLE_BACKENDS}")
 		set(SIMUTRANS_BACKEND "${FIRST_BACKEND}" CACHE STRING "Graphics backend")
 		set_property(CACHE SIMUTRANS_BACKEND PROPERTY STRINGS ${AVAILABLE_BACKENDS})
 	else (AVAILABLE_BACKENDS)
-		message(WARNING "No suitable backend found (Must be one of: sdl). Falling back to headless compilation.")
+		message(WARNING "No suitable backend found (Must be one of: allegro sdl). Falling back to headless compilation.")
 		set(SIMUTRANS_BUILD_HEADLESS TRUE)
 	endif (AVAILABLE_BACKENDS)
 endif (NOT SIMUTRANS_BUILD_HEADLESS)

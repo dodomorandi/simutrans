@@ -431,6 +431,9 @@ if (SIMUTRANS_BACKEND STREQUAL "sdl")
 	target_include_directories(simutrans PRIVATE ${SDL_INCLUDE_DIR})
 	target_link_libraries(simutrans ${SDL_LIBRARY})
 	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc ${BACKUP_MUSIC})
+elseif (SIMUTRANS_BACKEND STREQUAL "allegro")
+	target_sources(simutrans PRIVATE simsys_d.cc sound/allegro_sound.cc music/allegro_midi.cc)
+	target_link_libraries(simutrans Allegro::Allegro)
 endif ()
 
 
