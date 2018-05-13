@@ -43,6 +43,7 @@ find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(BZip2 REQUIRED)
 find_package(Freetype)
+find_package(MiniUPNP)
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
@@ -433,10 +434,15 @@ target_link_libraries(simutrans
 )
 
 if (SIMUTRANS_USE_FREETYPE)
-    target_compile_options(simutrans PRIVATE -DUSE_FREETYPE=1)
-    target_include_directories(simutrans PRIVATE ${FREETYPE_INCLUDE_DIRS})
-    target_link_libraries(simutrans ${FREETYPE_LIBRARIES})
+	target_compile_options(simutrans PRIVATE -DUSE_FREETYPE=1)
+	target_include_directories(simutrans PRIVATE ${FREETYPE_INCLUDE_DIRS})
+	target_link_libraries(simutrans ${FREETYPE_LIBRARIES})
 endif (SIMUTRANS_USE_FREETYPE)
+
+if (MiniUPNP_FOUND)
+	target_link_libraries(simutrans MiniUPNP::MiniUPNP)
+endif (MiniUPNP_FOUND)
+
 
 
 #
@@ -457,6 +463,9 @@ target_compile_options(simutrans PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
 target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
 target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
 
+if (MiniUPNP_FOUND)
+    target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
+endif (MiniUPNP_FOUND)
 
 
 #
