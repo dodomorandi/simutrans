@@ -1,4 +1,7 @@
-
+#
+# This file is part of the Simutrans project under the artistic licence.
+# (see licence.txt)
+#
 
 add_executable(makeobj
 	makeobj.cc

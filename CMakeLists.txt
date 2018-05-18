@@ -2,6 +2,7 @@
 # This file is part of the Simutrans project under the artistic licence.
 # (see licence.txt)
 #
+
 cmake_minimum_required(VERSION 3.8)
 
 # Disable in-source builds
@@ -68,9 +69,9 @@ option(SIMUTRANS_VALGRIND_SUPPORT  "Add support for valgrind \"memcheck\" tool")
 
 
 if (Freetype_FOUND)
-    option(SIMUTRANS_USE_FREETYPE "Use freetype library for for font rendering" ON)
+	option(SIMUTRANS_USE_FREETYPE "Use freetype library for for font rendering" ON)
 else (Freetype_FOUND)
-    set(SIMUTRANS_USE_FREETYPE OFF)
+	set(SIMUTRANS_USE_FREETYPE OFF)
 endif (Freetype_FOUND)
 
 
@@ -414,10 +415,20 @@ else (SIMUTRANS_BUILD_HEADLESS)
 endif (SIMUTRANS_BUILD_HEADLESS)
 
 
+# Backup sound and music routines if the selected backend does not provide any routines
+if (WIN32 OR MINGW)
+	set(BACKUP_SOUND sound/win32_sound.cc)
+	set(BACKUP_MUSIC music/w32_midi.cc)
+else (WIN32 OR MINGW)
+	set(BACKUP_SOUND sound/no_sound.cc)
+	set(BACKUP_MUSIC music/no_midi.cc)
+endif (WIN32 OR MINGW)
+
+
 if (SIMUTRANS_BACKEND STREQUAL "sdl")
 	target_include_directories(simutrans PRIVATE ${SDL_INCLUDE_DIR})
 	target_link_libraries(simutrans ${SDL_LIBRARY})
-	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc music/no_midi.cc)
+	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc ${BACKUP_MUSIC})
 endif ()
 
 
@@ -461,7 +472,7 @@ target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG
 target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
 
 if (MiniUPNP_FOUND)
-    target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
+	target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
 endif (MiniUPNP_FOUND)
 
 if (SIMUTRANS_WITH_REVISION)

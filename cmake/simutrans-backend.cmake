@@ -2,6 +2,7 @@
 # This file is part of the Simutrans project under the artistic licence.
 # (see licence.txt)
 #
+
 find_package(SDL 1.2)
 
 option(SIMUTRANS_BUILD_HEADLESS "Build Simutrans without graphics backend. Recommended for standalone servers." OFF)

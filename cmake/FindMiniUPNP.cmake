@@ -1,4 +1,8 @@
 #
+# This file is part of the Simutrans project under the artistic licence.
+# (see licence.txt)
+#
+#
 # Locate MiniUPNP library.
 # This module defines
 #  MiniUPNP_FOUND, if miniupnp library and headers have been found
@@ -14,16 +18,16 @@ if (MiniUPNP_INCLUDE_DIR AND MiniUPNP_LIBRARY)
 endif ()
 
 find_path(MiniUPNP_INCLUDE_DIR miniupnpc.h
-    HINTS $ENV{MINIUPNP_INCLUDE_DIR}
-    PATH_SUFFIXES miniupnpc
+	HINTS $ENV{MINIUPNP_INCLUDE_DIR}
+	PATH_SUFFIXES miniupnpc
 )
 
 find_library(MiniUPNP_LIBRARY miniupnpc
-    HINTS $ENV{MINIUPNP_LIBRARY}
+	HINTS $ENV{MINIUPNP_LIBRARY}
 )
 
 find_library(MiniUPNP_STATIC_LIBRARY libminiupnpc.a
-    HINTS $ENV{MINIUPNP_STATIC_LIBRARY}
+	HINTS $ENV{MINIUPNP_STATIC_LIBRARY}
 )
 
 set(MiniUPNP_INCLUDE_DIRS ${MiniUPNP_INCLUDE_DIR})
@@ -32,30 +36,30 @@ set(MiniUPNP_STATIC_LIBRARIES ${MiniUPNP_STATIC_LIBRARY})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
-    MiniUPNP DEFAULT_MSG
-    MiniUPNP_INCLUDE_DIR
-    MiniUPNP_LIBRARY
+	MiniUPNP DEFAULT_MSG
+	MiniUPNP_INCLUDE_DIR
+	MiniUPNP_LIBRARY
 )
 
 if (MiniUPNP_FOUND)
-    file(STRINGS "${MiniUPNP_INCLUDE_DIR}/miniupnpc.h" MiniUPNP_API_VERSION_STR REGEX "^#define[\t ]+MINIUPNPC_API_VERSION[\t ]+[0-9]+")
-    if (MiniUPNP_API_VERSION_STR MATCHES "^#define[\t ]+MINIUPNPC_API_VERSION[\t ]+([0-9]+)")
-        set(MiniUPNP_API_VERSION "${CMAKE_MATCH_1}")
-    endif()
+	file(STRINGS "${MiniUPNP_INCLUDE_DIR}/miniupnpc.h" MiniUPNP_API_VERSION_STR REGEX "^#define[\t ]+MINIUPNPC_API_VERSION[\t ]+[0-9]+")
+	if (MiniUPNP_API_VERSION_STR MATCHES "^#define[\t ]+MINIUPNPC_API_VERSION[\t ]+([0-9]+)")
+		set(MiniUPNP_API_VERSION "${CMAKE_MATCH_1}")
+	endif()
 
-    if (MiniUPNP_API_VERSION GREATER_EQUAL 10 AND NOT MiniUPNP_FIND_QUIETLY)
-	    message(STATUS "Found MiniUPNP API version ${MiniUPNP_API_VERSION}")
-    endif()
+	if (MiniUPNP_API_VERSION GREATER_EQUAL 10 AND NOT MiniUPNP_FIND_QUIETLY)
+		message(STATUS "Found MiniUPNP API version ${MiniUPNP_API_VERSION}")
+	endif()
 endif()
 
 mark_as_advanced(MiniUPNP_INCLUDE_DIR MiniUPNP_LIBRARY MiniUPNP_STATIC_LIBRARY)
 
 if (MiniUPNP_FOUND)
-    if (NOT TARGET MiniUPNP::MiniUPNP)
-        add_library(MiniUPNP::MiniUPNP UNKNOWN IMPORTED)
-    endif (NOT TARGET MiniUPNP::MiniUPNP)
+	if (NOT TARGET MiniUPNP::MiniUPNP)
+		add_library(MiniUPNP::MiniUPNP UNKNOWN IMPORTED)
+	endif (NOT TARGET MiniUPNP::MiniUPNP)
 
-    set_target_properties(MiniUPNP::MiniUPNP PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${MiniUPNP_INCLUDE_DIRS}")
-    set_target_properties(MiniUPNP::MiniUPNP PROPERTIES IMPORTED_LOCATION "${MiniUPNP_LIBRARIES}")
+	set_target_properties(MiniUPNP::MiniUPNP PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${MiniUPNP_INCLUDE_DIRS}")
+	set_target_properties(MiniUPNP::MiniUPNP PROPERTIES IMPORTED_LOCATION "${MiniUPNP_LIBRARIES}")
 endif (MiniUPNP_FOUND)
 
