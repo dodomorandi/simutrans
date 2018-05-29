@@ -27,3 +27,5 @@
 *.patch
 *.log
 /doxygen
+*.kdev4*
+.kateconfig
