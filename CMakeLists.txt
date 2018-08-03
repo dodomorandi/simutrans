@@ -75,6 +75,7 @@ if (MiniUPNP_FOUND)
 	option(SIMUTRANS_USE_UPNP "Use MiniUPNP" OFF)
 endif (MiniUPNP_FOUND)
 
+option(SIMUTRANS_ENABLE_PROFILING "Enable profiling code" OFF)
 
 #
 # output directory
@@ -460,12 +461,15 @@ endif (SIMUTRANS_USE_UPNP)
 #
 if (SIMUTRANS_BIG_ENDIAN)
 	add_definitions(simutrans PRIVATE SIM_BIG_ENDIAN)
-endif (SIMUTRANS_BIG_ENDIAN)
+endif ()
 
 if (SIMUTRANS_VALGRIND_SUPPORT)
 	add_definitions(-DUSE_VALGRIND_MEMCHECK=1)
 endif ()
 
+if (SIMUTRANS_ENABLE_PROFILING)
+	add_definitions(-DPROFILE=1)
+endif ()
 
 include(simutrans-compile-options)
 target_compile_options(simutrans PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})

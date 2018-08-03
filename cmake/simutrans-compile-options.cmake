@@ -62,3 +62,9 @@ SIMUTRANS_CHECK_CXX_COMPILER_FLAGS(SIMUTRANS_COMMON_COMPILE_OPTIONS
 	-Wno-overloaded-virtual
 	-Wno-cpp # Squelch #warning directive that is already emitted at CMake configure time
 )
+
+if (SIMUTRANS_PROFILE)
+	SIMUTRANS_CHECK_CXX_COMPILER_FLAGS(SIMUTRANS_COMMON_COMPILE_OPTIONS
+		-pg -fno-inline -fno-schedule-insns
+	)
+endif (SIMUTRANS_PROFILE)
