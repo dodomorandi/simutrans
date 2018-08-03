@@ -67,12 +67,13 @@ option(SIMUTRANS_BUILD_MAKEOBJ "Build makeobj pakset tool" OFF)
 option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration")
 option(SIMUTRANS_VALGRIND_SUPPORT  "Add support for valgrind \"memcheck\" tool")
 
-
 if (Freetype_FOUND)
-	option(SIMUTRANS_USE_FREETYPE "Use freetype library for for font rendering" ON)
-else (Freetype_FOUND)
-	set(SIMUTRANS_USE_FREETYPE OFF)
+	option(SIMUTRANS_USE_FREETYPE "Use freetype library for font rendering" ON)
 endif (Freetype_FOUND)
+
+if (MiniUPNP_FOUND)
+	option(SIMUTRANS_USE_UPNP "Use MiniUPNP" OFF)
+endif (MiniUPNP_FOUND)
 
 
 #
@@ -447,9 +448,10 @@ if (SIMUTRANS_USE_FREETYPE)
 	target_link_libraries(simutrans ${FREETYPE_LIBRARIES})
 endif (SIMUTRANS_USE_FREETYPE)
 
-if (MiniUPNP_FOUND)
+if (SIMUTRANS_USE_UPNP)
+	target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
 	target_link_libraries(simutrans MiniUPNP::MiniUPNP)
-endif (MiniUPNP_FOUND)
+endif (SIMUTRANS_USE_UPNP)
 
 
 
@@ -470,10 +472,6 @@ target_compile_options(simutrans PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
 
 target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
 target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
-
-if (MiniUPNP_FOUND)
-	target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
-endif (MiniUPNP_FOUND)
 
 if (SIMUTRANS_WITH_REVISION)
 	target_compile_definitions(simutrans PRIVATE REVISION=${SIMUTRANS_WC_REVISION})
