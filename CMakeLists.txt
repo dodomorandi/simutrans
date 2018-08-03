@@ -32,6 +32,8 @@ if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
 	message(WARNING "Simutrans is preferrably compiled as a 32 bit binary!")
 endif (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
 
+include(TestBigEndian)
+TEST_BIG_ENDIAN(SIMUTRANS_BIG_ENDIAN)
 
 #
 # Dependencies
@@ -431,6 +433,10 @@ target_compile_options(simutrans PRIVATE
 	-Walloca
 )
 
+target_compile_options(simutrans PRIVATE -Wno-implicit-fallthrough -Wno-format-nonliteral)
+if (SIMUTRANS_BIG_ENDIAN)
+	target_compile_definitions(simutrans PRIVATE SIM_BIG_ENDIAN)
+endif (SIMUTRANS_BIG_ENDIAN)
 target_compile_options(simutrans PRIVATE
 	-Wno-implicit-fallthrough
 	-Wno-format-nonliteral
