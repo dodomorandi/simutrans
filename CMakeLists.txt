@@ -3,6 +3,8 @@
 # (see licence.txt)
 #
 cmake_minimum_required(VERSION 3.8)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
+
 
 # Disable in-source builds
 if (CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
@@ -26,29 +28,16 @@ find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(BZip2 REQUIRED)
 
-find_package(SDL 1.2)
-
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 
+find_package(Subversion)
+find_package(Git)
 
 #
 # Configuration options
 #
-option(SIMUTRANS_BUILD_HEADLESS "Build Simutrans without graphics backend. Recommended for standalone servers." OFF)
-
-if (SDL_FOUND)
-	list(APPEND AVAILABLE_BACKENDS "sdl")
-endif (SDL_FOUND)
-
-if (NOT AVAILABLE_BACKENDS)
-	message(FATAL_ERROR "No suitable backend found.")
-endif (NOT AVAILABLE_BACKENDS)
-
-string(REGEX MATCH "^[^;][^;]*" FIRST_BACKEND "${AVAILABLE_BACKENDS}")
-set(SIMUTRANS_BACKEND "${FIRST_BACKEND}" CACHE STRING "Graphics backend")
-set_property(CACHE SIMUTRANS_BACKEND PROPERTY STRINGS ${AVAILABLE_BACKENDS})
-
+include(simutrans-backend)
 
 if (CMAKE_USE_PTHREADS_INIT)
 	option(SIMUTRANS_MULTI_THREAD "Use multiple threads for drawing" ON)
