@@ -30,11 +30,6 @@ project(simutrans VERSION 120.4 LANGUAGES C CXX)
 
 include(simutrans-revision)
 
-# For now, emit a warning when compiling as 64 bit binary
-if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
-	message(WARNING "Simutrans is preferrably compiled as a 32 bit binary!")
-endif (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
-
 include(TestBigEndian)
 TEST_BIG_ENDIAN(SIMUTRANS_BIG_ENDIAN)
 
@@ -62,6 +57,11 @@ if (CMAKE_USE_PTHREADS_INIT)
 else (CMAKE_USE_PTHREADS_INIT)
 	set(SIMUTRANS_MULTI_THREAD OFF)
 endif (CMAKE_USE_PTHREADS_INIT)
+
+if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
+	option(SIMUTRANS_BUILD_32BIT "Build 32 or 64 bit executable" OFF)
+endif ()
+
 
 option(SIMUTRANS_BUILD_MAKEOBJ "Build makeobj pakset tool" OFF)
 option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration")
@@ -469,6 +469,18 @@ endif ()
 
 include(simutrans-compile-options)
 target_compile_options(simutrans PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
+
+if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
+	if (SIMUTRANS_BUILD_32BIT)
+		target_compile_options(simutrans PRIVATE -m32)
+		set_target_properties(simutrans PROPERTIES LINK_FLAGS "-m32")
+	else ()
+		# For now, emit a warning when compiling as 64 bit binary
+		message(WARNING "Simutrans is preferrably compiled as a 32 bit binary!")
+	endif (SIMUTRANS_BUILD_32BIT)
+endif (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
+
+
 
 target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
 target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)

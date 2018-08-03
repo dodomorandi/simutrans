@@ -60,4 +60,5 @@ SIMUTRANS_CHECK_CXX_COMPILER_FLAGS(SIMUTRANS_COMMON_COMPILE_OPTIONS
 	-Wno-array-bounds
 	-Wno-strict-aliasing
 	-Wno-overloaded-virtual
+	-Wno-cpp # Squelch #warning directive that is already emitted at CMake configure time
 )
