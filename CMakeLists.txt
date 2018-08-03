@@ -428,24 +428,32 @@ target_link_libraries(simutrans
 #
 target_compile_options(simutrans PRIVATE
 	-std=c++03 -Wall -Wextra -Wformat=2 -Wundef
-	-Walloc-zero -Wmissing-include-dirs -Wduplicated-cond -Wduplicated-branches
+	-Wmissing-include-dirs
 	-Wcast-qual -Wpointer-arith -Wcast-align
-	-Walloca
+
 )
 
-target_compile_options(simutrans PRIVATE -Wno-implicit-fallthrough -Wno-format-nonliteral)
-if (SIMUTRANS_BIG_ENDIAN)
-	target_compile_definitions(simutrans PRIVATE SIM_BIG_ENDIAN)
-endif (SIMUTRANS_BIG_ENDIAN)
+if (CMAKE_COMPILER_IS_GNUCXX)
+	target_compile_options(simutrans PRIVATE
+		-Walloca
+		-Wduplicated-cond -Wduplicated-branches
+	)
+endif ()
+
 target_compile_options(simutrans PRIVATE
 	-Wno-implicit-fallthrough
 	-Wno-format-nonliteral
 	-Wno-unused-result
 	-Wno-array-bounds
 	-Wno-strict-aliasing
-	-Wno-alloc-zero
 )
 
+if (SIMUTRANS_BIG_ENDIAN)
+	target_compile_definitions(simutrans PRIVATE SIM_BIG_ENDIAN)
+	endif (SIMUTRANS_BIG_ENDIAN)
+
+target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
+target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
 
 #
 # Nettool/Makeobj
@@ -457,6 +465,3 @@ endif (SIMUTRANS_BUILD_MAKEOBJ)
 if (SIMUTRANS_BUILD_NETTOOL)
 	add_subdirectory(nettools)
 endif (SIMUTRANS_BUILD_NETTOOL)
-
-target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
-target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
