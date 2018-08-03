@@ -45,6 +45,9 @@ else (CMAKE_USE_PTHREADS_INIT)
 	set(SIMUTRANS_MULTI_THREAD OFF)
 endif (CMAKE_USE_PTHREADS_INIT)
 
+option(SIMUTRANS_BUILD_MAKEOBJ "Build makeobj pakset tool" OFF)
+option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration")
+
 
 #
 # output directory
@@ -424,6 +427,18 @@ target_compile_options(simutrans PRIVATE
 	-Wno-strict-aliasing
 	-Wno-alloc-zero
 )
+
+
+#
+# Nettool/Makeobj
+#
+if (SIMUTRANS_BUILD_MAKEOBJ)
+	add_subdirectory(makeobj)
+endif (SIMUTRANS_BUILD_MAKEOBJ)
+
+if (SIMUTRANS_BUILD_NETTOOL)
+	add_subdirectory(nettools)
+endif (SIMUTRANS_BUILD_NETTOOL)
 
 target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
 target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
