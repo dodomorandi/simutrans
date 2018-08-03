@@ -14,6 +14,7 @@ endif (CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 set(CMAKE_WARN_DEPRECATED ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
 
+
 find_package(CCache)
 if (CCache_FOUND)
 	option(SIMUTRANS_ENABLE_CCACHE "Enable CCache build cache" ON)
@@ -41,6 +42,7 @@ TEST_BIG_ENDIAN(SIMUTRANS_BIG_ENDIAN)
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(BZip2 REQUIRED)
+find_package(Freetype)
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
@@ -62,6 +64,13 @@ endif (CMAKE_USE_PTHREADS_INIT)
 option(SIMUTRANS_BUILD_MAKEOBJ "Build makeobj pakset tool" OFF)
 option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration")
 option(SIMUTRANS_VALGRIND_SUPPORT  "Add support for valgrind \"memcheck\" tool")
+
+
+if (Freetype_FOUND)
+    option(SIMUTRANS_USE_FREETYPE "Use freetype library for for font rendering" ON)
+else (Freetype_FOUND)
+    set(SIMUTRANS_USE_FREETYPE OFF)
+endif (Freetype_FOUND)
 
 
 #
@@ -422,6 +431,12 @@ target_link_libraries(simutrans
 	PNG::PNG
 	BZip2::BZip2
 )
+
+if (SIMUTRANS_USE_FREETYPE)
+    target_compile_options(simutrans PRIVATE -DUSE_FREETYPE=1)
+    target_include_directories(simutrans PRIVATE ${FREETYPE_INCLUDE_DIRS})
+    target_link_libraries(simutrans ${FREETYPE_LIBRARIES})
+endif (SIMUTRANS_USE_FREETYPE)
 
 
 #
