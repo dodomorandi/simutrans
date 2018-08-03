@@ -1,9 +1,12 @@
 
+
 add_executable(makeobj
 	makeobj.cc
 )
 
-target_compile_definitions(makeobj PRIVATE MAKEOBJ=1)
+target_compile_options(makeobj PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
+target_compile_definitions(makeobj PRIVATE MAKEOBJ=1 COLOUR_DEPTH=0)
+
 
 target_link_libraries(makeobj
 	ZLIB::ZLIB
@@ -60,5 +63,4 @@ target_sources(makeobj PRIVATE
 	../dataobj/tabfile.cc
 	../utils/log.cc
 )
-
 

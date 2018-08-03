@@ -3,7 +3,8 @@ add_executable(nettool
 	nettool.cc
 )
 
-target_compile_definitions(nettool PRIVATE NETTOOL=1)
+target_compile_options(nettool PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
+target_compile_definitions(nettool PRIVATE NETTOOL=1 COLOUR_DEPTH=0)
 
 # these source files produce the same object code in nettool and simutrans
 target_sources(nettool PRIVATE
