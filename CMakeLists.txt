@@ -61,6 +61,7 @@ endif (CMAKE_USE_PTHREADS_INIT)
 
 option(SIMUTRANS_BUILD_MAKEOBJ "Build makeobj pakset tool" OFF)
 option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration")
+option(SIMUTRANS_VALGRIND_SUPPORT  "Add support for valgrind \"memcheck\" tool")
 
 
 #
@@ -426,16 +427,21 @@ target_link_libraries(simutrans
 #
 # compile options
 #
-include(simutrans-compile-options)
-
-target_compile_options(simutrans PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
-
 if (SIMUTRANS_BIG_ENDIAN)
-	target_compile_definitions(simutrans PRIVATE SIM_BIG_ENDIAN)
+	add_definitions(simutrans PRIVATE SIM_BIG_ENDIAN)
 endif (SIMUTRANS_BIG_ENDIAN)
+
+if (SIMUTRANS_VALGRIND_SUPPORT)
+	add_definitions(-DUSE_VALGRIND_MEMCHECK=1)
+endif ()
+
+
+include(simutrans-compile-options)
+target_compile_options(simutrans PRIVATE ${SIMUTRANS_COMMON_COMPILE_OPTIONS})
 
 target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
 target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PUBLIC=0)
+
 
 
 #
