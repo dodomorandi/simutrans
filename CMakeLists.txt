@@ -25,8 +25,9 @@ if (CCache_FOUND)
 endif (CCache_FOUND)
 
 
-project(simutrans VERSION 120.3 LANGUAGES C CXX)
+project(simutrans VERSION 120.4 LANGUAGES C CXX)
 
+include(simutrans-revision)
 
 # For now, emit a warning when compiling as 64 bit binary
 if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -35,6 +36,7 @@ endif (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
 
 include(TestBigEndian)
 TEST_BIG_ENDIAN(SIMUTRANS_BIG_ENDIAN)
+
 
 #
 # Dependencies
@@ -48,8 +50,6 @@ find_package(MiniUPNP)
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 
-find_package(Subversion)
-find_package(Git)
 
 #
 # Configuration options
@@ -421,9 +421,6 @@ if (SIMUTRANS_BACKEND STREQUAL "sdl")
 endif ()
 
 
-include(simutrans-revision)
-
-
 #
 # Link dependencies
 #
@@ -466,6 +463,10 @@ target_compile_definitions(simutrans PRIVATE ENABLE_WATERWAY_SIGNS=0 AUTOJOIN_PU
 if (MiniUPNP_FOUND)
     target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
 endif (MiniUPNP_FOUND)
+
+if (SIMUTRANS_WITH_REVISION)
+	target_compile_definitions(simutrans PRIVATE REVISION=${SIMUTRANS_WC_REVISION})
+endif ()
 
 
 #
