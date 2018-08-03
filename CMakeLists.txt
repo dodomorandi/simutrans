@@ -3,8 +3,6 @@
 # (see licence.txt)
 #
 cmake_minimum_required(VERSION 3.8)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
-
 
 # Disable in-source builds
 if (CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
@@ -13,7 +11,21 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 		"(preferrably empty) directory.")
 endif (CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 
+set(CMAKE_WARN_DEPRECATED ON)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
+
+find_package(CCache)
+if (CCache_FOUND)
+	option(SIMUTRANS_ENABLE_CCACHE "Enable CCache build cache" ON)
+	if (SIMUTRANS_ENABLE_CCACHE)
+		set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCache_EXECUTABLE}")
+		set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK    "${CCache_EXECUTABLE}")
+	endif (SIMUTRANS_ENABLE_CCACHE)
+endif (CCache_FOUND)
+
+
 project(simutrans VERSION 120.3 LANGUAGES C CXX)
+
 
 # For now, emit a warning when compiling as 64 bit binary
 if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
