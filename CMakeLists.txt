@@ -393,6 +393,9 @@ if (SIMUTRANS_BACKEND STREQUAL "sdl")
 endif ()
 
 
+include(simutrans-revision)
+
+
 #
 # Link dependencies
 #
