@@ -431,6 +431,12 @@ if (SIMUTRANS_BACKEND STREQUAL "sdl")
 	target_include_directories(simutrans PRIVATE ${SDL_INCLUDE_DIR})
 	target_link_libraries(simutrans ${SDL_LIBRARY})
 	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc ${BACKUP_MUSIC})
+
+elseif (SIMUTRANS_BACKEND STREQUAL "sdl2")
+	target_sources(simutrans PRIVATE simsys_s2.cc ${BACKUP_SOUND} ${BACKUP_MUSIC})
+	target_include_directories(simutrans PRIVATE ${SDL2_INCLUDE_DIRS})
+	target_link_libraries(simutrans ${SDL2_LIBRARIES})
+
 elseif (SIMUTRANS_BACKEND STREQUAL "allegro")
 	target_sources(simutrans PRIVATE simsys_d.cc sound/allegro_sound.cc music/allegro_midi.cc)
 	target_link_libraries(simutrans Allegro::Allegro)
@@ -486,7 +492,6 @@ if (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
 		message(WARNING "Simutrans is preferrably compiled as a 32 bit binary!")
 	endif (SIMUTRANS_BUILD_32BIT)
 endif (NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
-
 
 
 target_compile_definitions(simutrans PRIVATE $<IF:$<CONFIG:Debug>,DEBUG=1,NDEBUG>)
