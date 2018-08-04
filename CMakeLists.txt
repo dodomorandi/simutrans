@@ -432,6 +432,11 @@ if (SIMUTRANS_BACKEND STREQUAL "sdl")
 	target_link_libraries(simutrans ${SDL_LIBRARY})
 	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc ${BACKUP_MUSIC})
 
+elseif (SIMUTRANS_BACKEND STREQUAL "mixer_sdl")
+	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_mixer_sound.cc music/sdl_midi.cc)
+	target_include_directories(simutrans PRIVATE ${SDL_INCLUDE_DIR} ${SDL_MIXER_INCLUDE_DIRS})
+	target_link_libraries(simutrans PRIVATE ${SDL_LIBRARY} ${SDL_MIXER_LIBRARIES})
+
 elseif (SIMUTRANS_BACKEND STREQUAL "sdl2")
 	target_sources(simutrans PRIVATE simsys_s2.cc ${BACKUP_SOUND} ${BACKUP_MUSIC})
 	target_include_directories(simutrans PRIVATE ${SDL2_INCLUDE_DIRS})
