@@ -404,7 +404,7 @@ endif (WIN32)
 
 if (SIMUTRANS_MULTI_THREAD)
 	target_compile_definitions(simutrans PRIVATE MULTI_THREAD)
-	target_link_libraries(simutrans Threads::Threads)
+	target_link_libraries(simutrans PRIVATE Threads::Threads)
 endif (SIMUTRANS_MULTI_THREAD)
 
 
@@ -428,19 +428,19 @@ endif (WIN32 OR MINGW)
 
 
 if (SIMUTRANS_BACKEND STREQUAL "sdl")
+	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc ${BACKUP_MUSIC})
 	target_include_directories(simutrans PRIVATE ${SDL_INCLUDE_DIR})
 	target_link_libraries(simutrans ${SDL_LIBRARY})
-	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_sound.cc ${BACKUP_MUSIC})
 
 elseif (SIMUTRANS_BACKEND STREQUAL "mixer_sdl")
 	target_sources(simutrans PRIVATE simsys_s.cc sound/sdl_mixer_sound.cc music/sdl_midi.cc)
 	target_include_directories(simutrans PRIVATE ${SDL_INCLUDE_DIR} ${SDL_MIXER_INCLUDE_DIRS})
-	target_link_libraries(simutrans PRIVATE ${SDL_LIBRARY} ${SDL_MIXER_LIBRARIES})
+    target_link_libraries(simutrans PRIVATE ${SDL_LIBRARY} ${SDL_MIXER_LIBRARIES})
 
 elseif (SIMUTRANS_BACKEND STREQUAL "sdl2")
 	target_sources(simutrans PRIVATE simsys_s2.cc ${BACKUP_SOUND} ${BACKUP_MUSIC})
 	target_include_directories(simutrans PRIVATE ${SDL2_INCLUDE_DIRS})
-	target_link_libraries(simutrans ${SDL2_LIBRARIES})
+	target_link_libraries(simutrans PRIVATE ${SDL2_LIBRARIES})
 
 elseif (SIMUTRANS_BACKEND STREQUAL "allegro")
 	target_sources(simutrans PRIVATE simsys_d.cc sound/allegro_sound.cc music/allegro_midi.cc)
@@ -456,7 +456,7 @@ endif ()
 #
 # Link dependencies
 #
-target_link_libraries(simutrans
+target_link_libraries(simutrans PRIVATE
 	ZLIB::ZLIB
 	PNG::PNG
 	BZip2::BZip2
@@ -465,12 +465,12 @@ target_link_libraries(simutrans
 if (SIMUTRANS_USE_FREETYPE)
 	target_compile_options(simutrans PRIVATE -DUSE_FREETYPE=1)
 	target_include_directories(simutrans PRIVATE ${FREETYPE_INCLUDE_DIRS})
-	target_link_libraries(simutrans ${FREETYPE_LIBRARIES})
+	target_link_libraries(simutrans PRIVATE ${FREETYPE_LIBRARIES})
 endif (SIMUTRANS_USE_FREETYPE)
 
 if (SIMUTRANS_USE_UPNP)
 	target_compile_definitions(simutrans PRIVATE USE_UPNP=1)
-	target_link_libraries(simutrans MiniUPNP::MiniUPNP)
+	target_link_libraries(simutrans PRIVATE MiniUPNP::MiniUPNP)
 endif (SIMUTRANS_USE_UPNP)
 
 
