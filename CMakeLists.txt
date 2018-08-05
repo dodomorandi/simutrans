@@ -72,7 +72,7 @@ if (Freetype_FOUND)
 endif (Freetype_FOUND)
 
 if (MiniUPNP_FOUND)
-	option(SIMUTRANS_USE_UPNP "Use MiniUPNP" OFF)
+	option(SIMUTRANS_USE_UPNP "Use MiniUPNP" ON)
 endif (MiniUPNP_FOUND)
 
 option(SIMUTRANS_ENABLE_PROFILING "Enable profiling code" OFF)
