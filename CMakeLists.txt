@@ -64,8 +64,8 @@ endif ()
 
 
 option(SIMUTRANS_BUILD_MAKEOBJ "Build makeobj pakset tool" OFF)
-option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration")
-option(SIMUTRANS_VALGRIND_SUPPORT  "Add support for valgrind \"memcheck\" tool")
+option(SIMUTRANS_BUILD_NETTOOL "Build command-line tool for server administration" OFF)
+option(SIMUTRANS_VALGRIND_SUPPORT  "Add support for valgrind \"memcheck\" tool" OFF)
 
 if (Freetype_FOUND)
 	option(SIMUTRANS_USE_FREETYPE "Use freetype library for font rendering" ON)
