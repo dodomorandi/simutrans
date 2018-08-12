@@ -62,7 +62,8 @@ endif (Allegro_FOUND OR NOT Allegro_FIND_REQUIRED)
 
 if (Allegro_FOUND AND NOT TARGET Allegro::Allegro)
 	add_library(Allegro::Allegro UNKNOWN IMPORTED)
+
+    set_target_properties(Allegro::Allegro PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${Allegro_INCLUDE_DIRS}")
+    set_property(TARGET Allegro::Allegro APPEND PROPERTY IMPORTED_LOCATION "${Allegro_LIBRARIES}")
 endif (Allegro_FOUND AND NOT TARGET Allegro::Allegro)
 
-set_target_properties(Allegro::Allegro PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${Allegro_INCLUDE_DIRS}")
-set_property(TARGET Allegro::Allegro APPEND PROPERTY IMPORTED_LOCATION "${Allegro_LIBRARIES}")
