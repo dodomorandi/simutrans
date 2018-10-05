@@ -158,6 +158,7 @@ add_executable(simutrans
 	dataobj/marker.cc
 	dataobj/powernet.cc
 	dataobj/records.cc
+	dataobj/rect.cc
 	dataobj/ribi.cc
 	dataobj/route.cc
 	dataobj/scenario.cc
