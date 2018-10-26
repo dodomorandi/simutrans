@@ -1,0 +1,22 @@
+target_sources(simutrans PRIVATE
+	${CMAKE_CURRENT_LIST_DIR}/crossing_logic.cc
+	${CMAKE_CURRENT_LIST_DIR}/objlist.cc
+	${CMAKE_CURRENT_LIST_DIR}/settings.cc
+	${CMAKE_CURRENT_LIST_DIR}/freelist.cc
+	${CMAKE_CURRENT_LIST_DIR}/gameinfo.cc
+	${CMAKE_CURRENT_LIST_DIR}/height_map_loader.cc
+	${CMAKE_CURRENT_LIST_DIR}/koord.cc
+	${CMAKE_CURRENT_LIST_DIR}/koord3d.cc
+	${CMAKE_CURRENT_LIST_DIR}/loadsave.cc
+	${CMAKE_CURRENT_LIST_DIR}/marker.cc
+	${CMAKE_CURRENT_LIST_DIR}/powernet.cc
+	${CMAKE_CURRENT_LIST_DIR}/records.cc
+	${CMAKE_CURRENT_LIST_DIR}/rect.cc
+	${CMAKE_CURRENT_LIST_DIR}/ribi.cc
+	${CMAKE_CURRENT_LIST_DIR}/route.cc
+	${CMAKE_CURRENT_LIST_DIR}/scenario.cc
+	${CMAKE_CURRENT_LIST_DIR}/schedule.cc
+	${CMAKE_CURRENT_LIST_DIR}/tabfile.cc
+	${CMAKE_CURRENT_LIST_DIR}/translator.cc
+	${CMAKE_CURRENT_LIST_DIR}/environment.cc
+)

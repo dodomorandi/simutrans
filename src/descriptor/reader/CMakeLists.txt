@@ -1,0 +1,27 @@
+target_sources(simutrans PRIVATE
+	${CMAKE_CURRENT_LIST_DIR}/bridge_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/building_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/citycar_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/crossing_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/factory_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/good_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/ground_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/groundobj_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/image_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/imagelist2d_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/imagelist_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/obj_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/pedestrian_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/roadsign_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/root_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/sim_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/skin_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/sound_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/text_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/tree_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/tunnel_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/vehicle_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/way_obj_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/way_reader.cc
+	${CMAKE_CURRENT_LIST_DIR}/xref_reader.cc
+)

@@ -1,0 +1,25 @@
+target_sources(simutrans PRIVATE
+	${CMAKE_CURRENT_LIST_DIR}/api_city.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_command.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_const.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_control.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_convoy.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_gui.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_factory.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_halt.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_include.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_line.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_map_objects.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_obj_desc.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_obj_desc_base.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_pathfinding.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_player.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_scenario.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_schedule.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_settings.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_simple.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_tiles.cc
+	${CMAKE_CURRENT_LIST_DIR}/api_world.cc
+	${CMAKE_CURRENT_LIST_DIR}/export_desc.cc
+	${CMAKE_CURRENT_LIST_DIR}/get_next.cc
+)

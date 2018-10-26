@@ -1,0 +1,24 @@
+target_sources(simutrans PRIVATE
+	${CMAKE_CURRENT_LIST_DIR}/gui_button.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_chart.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_combobox.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_container.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_convoiinfo.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_obj_view_t.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_fixedwidth_textarea.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_flowtext.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_image.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_image_list.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_komponente.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_label.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_map_preview.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_numberinput.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_scrollbar.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_scrolled_list.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_scrollpane.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_speedbar.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_tab_panel.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_textarea.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_textinput.cc
+	${CMAKE_CURRENT_LIST_DIR}/gui_world_view_t.cc
+)
